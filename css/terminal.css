@@ -1,0 +1,44 @@
+:root{
+  --bg:#000; --fg:#33ff66; --fg-hi:#b6ffc8; --fg-dim:#1fb349;
+  --glow:0 0 6px rgba(51,255,102,.45);
+  --font:"Courier New",ui-monospace,SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC","Noto Sans Mono CJK JP",monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:clamp(15px,2.4vw,19px);line-height:1.45;text-shadow:var(--glow)}
+body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:1px solid var(--fg-dim);border-radius:0;padding:.2em .7em;cursor:pointer;text-shadow:inherit}
+button:hover:not(:disabled),button:focus-visible{background:var(--fg);color:var(--bg);text-shadow:none;outline:none}
+button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--fg-hi);outline-offset:2px}
+[hidden]{display:none!important}
+
+#bar{display:flex;gap:.6em;justify-content:flex-end;padding:.5em .8em;border-bottom:1px solid var(--fg-dim);flex:none}
+.ctl{font-size:.8em}
+
+#splash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1em;padding:1em;overflow:auto}
+#logo{max-width:min(480px,90%);height:auto;image-rendering:pixelated}
+#langs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:.4em;width:min(52em,100%)}
+#langs button{width:100%;display:flex;align-items:center;gap:.7em;text-align:left;padding:.45em .7em}
+#langs button[aria-pressed="true"]{background:var(--fg);color:var(--bg);text-shadow:none}
+.flag{width:2em;height:1.35em;object-fit:cover;border:1px solid var(--fg-dim);flex:none;background:#031}
+.act{font-size:1.1em;padding:.4em 1.4em;border-width:2px}
+
+#screen{flex:1;display:flex;flex-direction:column;min-height:0;padding:.6em .9em}
+#out{flex:1;overflow-y:auto;overflow-x:hidden;white-space:pre-wrap;overflow-wrap:anywhere;scrollbar-width:thin;scrollbar-color:var(--fg-dim) var(--bg)}
+#out>div{min-height:1.45em}
+.cmd{color:var(--fg-hi)}
+.sys{color:var(--fg)}
+.dim{color:var(--fg-dim)}
+.err{background:var(--fg);color:var(--bg);text-shadow:none;display:inline-block;padding:0 .4em}
+#line{display:flex;gap:.6em;flex:none;padding-top:.4em;border-top:1px solid var(--fg-dim)}
+#prompt{color:var(--fg-hi)}
+#cmd{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--fg-hi);font:inherit;text-shadow:inherit;caret-color:var(--fg-hi);padding:0}
+#line.busy #prompt{opacity:.4}
+
+#crt{position:fixed;inset:0;pointer-events:none;z-index:10;
+  background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.18) 3px);
+  box-shadow:inset 0 0 120px rgba(0,0,0,.65)}
+body.flicker #crt{animation:flick 6s infinite steps(1)}
+@keyframes flick{0%,96%,100%{opacity:1}97%{opacity:.82}98%{opacity:1}99%{opacity:.9}}
+@media (prefers-reduced-motion:reduce){body.flicker #crt{animation:none}}
+@media (max-width:520px){#bar{justify-content:space-between}}
